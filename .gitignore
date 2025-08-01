@@ -1,0 +1,6 @@
+.env
+fsmvenv
+notes.txt
+.env-production
+temp
+.env.example
