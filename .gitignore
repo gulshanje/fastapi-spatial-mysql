@@ -4,3 +4,6 @@ notes.txt
 .env-production
 temp
 .env.example
+create_admin.py
+__pycache__
+temp
