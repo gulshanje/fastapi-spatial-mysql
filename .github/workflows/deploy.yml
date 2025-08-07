@@ -27,5 +27,5 @@ jobs:
         PA_USERNAME: ${{ secrets.PA_USERNAME }}
         PA_API_TOKEN: ${{ secrets.PA_API_TOKEN }}
       run: |
-        curl -s -X POST https://www.pythonanywhere.com/api/v0/user/${PA_USERNAME}/webapps/yourdomain.pythonanywhere.com/reload/ \
-        -H "Authorization: Token ${PA_API_TOKEN}"
+        curl -X POST https://www.pythonanywhere.com/api/v0/user/${{ secrets.PA_USERNAME }}/webapps/${{ secrets.PA_USERNAME }}.pythonanywhere.com/reload/ \
+        --header "Authorization: Token ${{ secrets.PA_API_TOKEN }}"
