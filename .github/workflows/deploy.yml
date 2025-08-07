@@ -2,25 +2,30 @@ name: Deploy to PythonAnywhere
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main ]  # or master, based on your setup
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout Code
+    - name: Checkout code
       uses: actions/checkout@v3
 
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
-        python-version: 3.11
+        python-version: '3.11'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
 
     - name: Deploy to PythonAnywhere
       env:
         PA_USERNAME: ${{ secrets.PA_USERNAME }}
         PA_API_TOKEN: ${{ secrets.PA_API_TOKEN }}
       run: |
-        curl -X POST https://www.pythonanywhere.com/api/v0/user/${{ secrets.PA_USERNAME }}/webapps/${{ secrets.PA_USERNAME }}.pythonanywhere.com/reload/ \
-        --header "Authorization: Token ${{ secrets.PA_API_TOKEN }}"
+        curl -s -X POST https://www.pythonanywhere.com/api/v0/user/${PA_USERNAME}/webapps/yourdomain.pythonanywhere.com/reload/ \
+        -H "Authorization: Token ${PA_API_TOKEN}"
